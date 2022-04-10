@@ -5,6 +5,8 @@ if (localStorage.getItem('listaPaciente') != null) {
     listaPaciente = JSON.parse(localStorage.getItem('listaPaciente'));
 }
 
+setInterval(carregarTable, 1000)
+
 let cor = {
     "Pré-Operatório": "warning",
     "Transferido": "info",
@@ -44,6 +46,7 @@ function gravar() {
 
 function carregarTable() {
     let tabela = '';
+    listaPaciente = JSON.parse(localStorage.getItem('listaPaciente'));
     for (i in listaPaciente) {
 
         let status = listaPaciente[i].status;
@@ -92,6 +95,11 @@ function novo() {
 
 function apagar() {
     let i = document.getElementById('id').value;
+
+    if (i == '') {
+        alert("Selecione um paciente!")
+        return;
+    }
     listaPaciente.splice(i, 1);
     localStorage.setItem('listaPaciente', JSON.stringify(listaPaciente));
     carregarTable();
